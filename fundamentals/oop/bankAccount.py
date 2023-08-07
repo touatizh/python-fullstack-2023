@@ -7,16 +7,34 @@ class BankAccount:
     Attributes:
             balance (int, optional): Client's starting balance. Defaults to 0.
             int_rate (float): Set the interest rate for the account. Defaults to 0.
+            class_instances (list): A list that keeps track of all class instances.
 
     Methods:
-            deposit(self: BankAccount, amount: float = 0) -> BankAccount: Adds the amount to the balance of a BankAccount object.
+            display_all_accounts_info(cls) -> None: Display information of all class instances at once.
+            eposit(self: BankAccount, amount: float = 0) -> BankAccount: Adds the amount to the balance of a BankAccount object.
             withdraw(self: BankAccount, amount: float = 0) -> BankAccount: Subtracts the amount from the balance of a BankAccount object. If there are insufficient funds, a  $5 fee will be charged.
             display_account_info(self: BankAccount) -> None: Prints the balance of a BankAccount object.
             yield_interest(self: BankAccount) -> BankAccount: Adds (current balance * interest rate) to the balance of a BankAccount object as long as the balance is positive.
     """
+    class_instances = [] #stores all BankAccount instances
+    @classmethod
+    def display_all_accounts_info(cls) -> None:
+        """
+        Display information of all class instances at once.
+        
+        Args:
+            cls: Represent the class object itself.
+        
+        Returns:
+            None
+        """
+        for instance in cls.class_instances:
+            instance.display_account_info()
+
     def __init__(self: BankAccount, balance: float = 0, int_rate: float = 0) -> None:
         """
-        Constructs all the necessary attributes for the BankAccount object.
+        Constructs all the necessary attributes for the BankAccount object. 
+        Adds the new created BankAccount instance to a class variable that keeps track of all BankAccount instances
         
         Args:
             self: Represent the instance of the object itself
@@ -28,6 +46,7 @@ class BankAccount:
         """
         self.balance = balance
         self.int_rate = int_rate
+        BankAccount.class_instances.append(self)
 
     def deposit(self: BankAccount, amount: float = 0) -> BankAccount:
         """
@@ -94,3 +113,7 @@ if __name__ == "__main__":
 
     #account2: 2 deposits and 4 withdrawals
     account2.deposit(680).deposit(275).withdraw(880).withdraw(700).withdraw(400).withdraw(550).yield_interest().display_account_info()
+
+    #Bonus
+    print("------ Using classmethod ------")
+    BankAccount.display_all_accounts_info()
