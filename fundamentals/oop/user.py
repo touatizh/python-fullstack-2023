@@ -1,4 +1,5 @@
 from __future__ import annotations
+from bankAccount import BankAccount
 
 class User:
     """
@@ -7,7 +8,7 @@ class User:
     Attributes:
             name (str): A string representing the client's name. Mandatory
             email (str, optional): An optional string representing the client's email address. Defaults to None.
-            balance (int, optional): An optional number representing the client's starting balance. Defaults to 0.
+            account (BankAccount, optional): An optional BankAccount object representing the client's account. Defaults to BankAccount(0,0).
 
     Methods:
             make_deposit(self, amount: int) -> None: Adds the given amount to the client's balance.
@@ -15,20 +16,20 @@ class User:
             display_user_balance(self) -> None: Displays the client's current balance.
             transfert_money(self, other_user: User, amount: int) -> None: Transfers the given amount between client's accounts.
     """
-    def __init__(self, name: str, email: str = None, balance: int = 0) -> None:
+    def __init__(self, name: str, email: str = None, account: BankAccount = BankAccount(0,0)) -> None:
         """
         Constructs all the necessary attributes for the User object.
 
         Args:
             name (str): A string representing the client's name. Mandatory
             email (str, optional): An optional string representing the client's email address. Defaults to None.
-            balance (int, optional): An optional number representing the client's starting balance. Defaults to 0.
+            account BankAccount, optional): An optional BankAccount object representing the client's account. Defaults to BankAccount(0,0).
 
         Returns: None
         """        
         self.name = name
         self.email = email
-        self.balance = balance
+        self.account = account
 
     def make_deposit(self, amount: int) -> User:
         """
@@ -40,7 +41,7 @@ class User:
         Returns:
             self (User): User object with updated balance.
         """        
-        self.balance += amount
+        self.account.deposit(amount)
         return self
 
     def make_withdrawal(self, amount: int) -> User:
@@ -53,14 +54,14 @@ class User:
         Returns:
             self (User): User object with updated balance.
         """
-        self.balance -= amount
+        self.account.withdraw(amount)
         return self
 
     def display_user_balance(self) -> None:
         """
         Displays the client's current balance.
         """
-        print(f"User: {self.name}, Balance: ${self.balance}")
+        print(f"User: {self.name}, Balance: ${self.account.balance}")
 
     def transfert_money(self, other_user: User, amount: int) -> User:
         """
@@ -73,14 +74,14 @@ class User:
         Returns:
             self (User): User object with updated balance.
         """
-        self.balance -= amount
-        other_user.balance += amount
+        self.account.withdraw(amount)
+        other_user.account.deposit(amount)
         return self
 
 if __name__ == "__main__":
     #Create 3 instances of User
-    user1 = User("Shen Doe", 5000)
-    user2 = User(name="Akali Tethi", email="akaliTethi@kinkou.order.com", balance=2000)
+    user1 = User("Shen Doe", account=BankAccount(5000, 0.02))
+    user2 = User(name="Akali Tethi", email="akaliTethi@kinkou.order.com", account=BankAccount(balance=2000, int_rate=0.13))
     user3 = User("Zed Ki")
 
     #user1: 3 deposits and 1 withdrawal
