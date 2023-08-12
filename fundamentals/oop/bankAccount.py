@@ -17,7 +17,7 @@ class BankAccount:
             yield_interest(self: BankAccount) -> BankAccount: Adds (current balance * interest rate) to the balance of a BankAccount object as long as the balance is positive.
     """
     class_instances = [] #stores all BankAccount instances
-    _nexy_id = 1 # used to assign sequential id numbers to each new instance
+    _next_id = 1 # used to assign sequential id numbers to each new instance
     @classmethod
     def display_all_accounts_info(cls) -> None:
         """
@@ -49,7 +49,7 @@ class BankAccount:
         self.id = BankAccount._next_id
         self.balance = balance
         self.int_rate = int_rate
-        BankAccount._nexy_id += 1
+        BankAccount._next_id += 1
         BankAccount.class_instances.append(self)
 
     def __eq__(self, account_to_compare: BankAccount) -> bool:
