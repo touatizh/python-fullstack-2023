@@ -1,0 +1,55 @@
+-- Creating 3 new dojos
+
+INSERT INTO dojos (name)
+VALUES("Python"), ("JavaScript"), ("C#");
+
+-- Deleting the 3 newly created dojos
+
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM dojos;
+
+-- Recreating the 3 more dojos
+
+INSERT INTO dojos (name)
+VALUES ("MERN"), ("MEAN"), ("Flask");
+
+-- Creating 3 ninjas belonging to the first dojo
+
+INSERT INTO ninjas (first_name, last_name, age, dojo_id)
+VALUES 
+("John", "Doe", 30, (SELECT id FROM dojos WHERE name="MERN")),
+("Jane", "Doe", 26, (SELECT id FROM dojos WHERE name="MERN")),
+("Richard", "Roe", 45, (SELECT id FROM dojos WHERE name="MERN"));
+
+-- Creating 3 ninjas belonging to the second dojo
+
+INSERT INTO ninjas (first_name, last_name, age, dojo_id)
+VALUES 
+("Harry", "Potter", 16, (SELECT id FROM dojos WHERE name="MEAN")),
+("Hermione", "Granger", 11, (SELECT id FROM dojos WHERE name="MEAN")),
+("Ron", "Weasley", 13, (SELECT id FROM dojos WHERE name="MEAN"));
+
+-- Creating 3 ninjas belonging to the third dojo
+
+INSERT INTO ninjas (first_name, last_name, age, dojo_id)
+VALUES 
+("Wiz", "Khalifa", 35, (SELECT id FROM dojos WHERE name="Flask")),
+("Marshall", "Mathers", 50, (SELECT id FROM dojos WHERE name="Flask")),
+("Hailie", "Jade", 27, (SELECT id FROM dojos WHERE name="Flask"));
+
+-- Retrieve all the ninjas from the first dojo
+
+SELECT * FROM ninjas 
+WHERE dojo_id = (SELECT id FROM dojos ORDER BY id ASC LIMIT 1);
+
+-- Retrieve all the ninjas from the last dojo
+
+SELECT * FROM dojos_and_ninjas_schema.ninjas 
+WHERE dojo_id = (SELECT id FROM dojos ORDER BY id DESC LIMIT 1);
+
+-- Retrieve the last ninja's dojo
+
+SELECT name FROM dojos
+LEFT JOIN ninjas
+ON dojos.id = ninjas.dojo_id
+WHERE ninjas.id = (SELECT id FROM ninjas ORDER BY id DESC LIMIT 1);
