@@ -13,3 +13,20 @@ body {
     margin-top: 12px;
     width: 40%!important;
 }
+
+td {
+    text-align: center;
+    
+}
+
+td[scope="col"] {
+    background-color: #343a3f!important;
+    color: #e7b114;
+    border: none;
+    font-weight: bolder;
+}
+
+tbody tr td {
+    height: 48px;
+    vertical-align: middle;
+}
