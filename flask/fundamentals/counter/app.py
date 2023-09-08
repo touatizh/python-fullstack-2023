@@ -29,6 +29,20 @@ def destroy_session() -> Response:
     session.pop("counter", None)
     return redirect(url_for("index"))
 
+@app.route("/plus_two")
+def plus_two() -> str:
+    """
+    Increment the session counter by two.
+
+    This function retrieves the current value of the "counter" from the session, increments it by two,
+    and then renders the index.html template to reflect the updated counter value.
+
+    Returns:
+        str: The rendered template as a string.
+    """
+    session["counter"] = session.get("counter", 0) + 2
+    return render_template("index.html", counter=session["counter"])
+
 if __name__ == "__main__":
     # Secret key
     # ! secret key is hard coded on this assigement for the sake of simplicity only,

@@ -1,13 +1,16 @@
+/* Wildcard */
 * {
     margin: 0;
     padding: 0;
     font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 
+/* Set a minimum height for the body to fill the viewport height */
 body {
     height: 100vh;
 }
 
+/* Center content both vertically and horizontally in the body and .container-sm elements */
 body,
 .container-sm {
     display: flex;
@@ -15,7 +18,23 @@ body,
     align-items: center;
 }
 
+/* Define styles for .container-sm to organize content in a column, with specific height and width */
 .container-sm {
     flex-direction: column;
     height: 50vh;
+    width: 25vw !important;
+}
+
+/* Style the .buttons container to evenly distribute space between button elements */
+.buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* Define styles for .btn-warning and .btn-danger to have a minimum width and no border */
+.btn-warning,
+.btn-danger {
+    min-width: 110px;
+    border: none;
 }
