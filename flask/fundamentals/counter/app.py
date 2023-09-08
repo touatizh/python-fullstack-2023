@@ -1,19 +1,27 @@
-from flask import Flask, render_template, session, redirect, url_for, Response
+from flask import Flask, render_template, session, redirect, url_for, Response, request
 
 # Create Flask app instance
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def index() -> str:
     """
     Handle requests to the home page.
 
-    This function initializes a session counter to 1 and renders the index.html template.
+    If the request method is GET, it increments the session counter by 1.
+    If the request method is POST, it updates the session counter with the received "count" value from the JSON body of the request.
+    
+    The session counter is used to track the number of visits to the website.
 
     Returns:
         str: The rendered template as a string.
     """
-    session["counter"] = session.get("counter", 0) + 1
+    if request.method == "POST":
+        count = request.get_json().get("count")
+        if isinstance(count, int):
+            session["counter"] = count
+    else:
+        session["counter"] = session.get("counter", 0) + 1
     return render_template("index.html")
 
 @app.route("/destroy_session")
@@ -32,16 +40,17 @@ def destroy_session() -> Response:
 @app.route("/plus_two")
 def plus_two() -> str:
     """
-    Increment the session counter by two.
+    Increment the session counter towards a total increment of two.
 
-    This function retrieves the current value of the "counter" from the session, increments it by two,
-    and then renders the index.html template to reflect the updated counter value.
+    This function obtains the current "counter" value from the session, increases it by one, and then 
+    redirects to the index route where the counter is further incremented by one. 
+    Consequently, the total increment in the counter through this route is two.
 
     Returns:
-        str: The rendered template as a string.
+        Response: A Flask Response object resulting from redirecting to the index route.
     """
-    session["counter"] = session.get("counter", 0) + 2
-    return render_template("index.html", counter=session["counter"])
+    session["counter"] = session.get("counter", 0) + 1
+    return redirect(url_for("index"))
 
 if __name__ == "__main__":
     # Secret key

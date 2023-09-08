@@ -22,19 +22,26 @@ body,
 .container-sm {
     flex-direction: column;
     height: 50vh;
-    width: 25vw !important;
+    width: 30vw !important;
 }
 
 /* Style the .buttons container to evenly distribute space between button elements */
 .buttons {
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* Define styles for .btn-warning and .btn-danger to have a minimum width and no border */
 .btn-warning,
 .btn-danger {
-    min-width: 110px;
+    min-width: 30%;
     border: none;
+    font-size: smaller!important;
+}
+
+input[type="text"] {
+    width: 20%;
+    height: 60%;
 }
