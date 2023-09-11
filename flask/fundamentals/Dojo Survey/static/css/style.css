@@ -5,12 +5,12 @@
     font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 
-/* Set a minimum height for the body to fill the viewport height */
+/* Body styles: Define styles for the <body> element to manage content overflow */
 body {
     overflow-y: hidden;
 }
 
-/* Center content both vertically and horizontally in the body and .container-sm elements */
+/* Flex container styles: Center content vertically and horizontally in the <body> and .container-sm elements */
 body,
 .container-sm {
     display: flex;
@@ -18,29 +18,45 @@ body,
     align-items: center;
 }
 
-/* Define styles for .container-sm to organize content in a column, with specific height and width */
+/* .container-sm styles: Define styles for .container-sm class to organize content in a column with defined dimensions and background color */
 .container-sm {
     flex-direction: column;
     max-width: 50vw!important;
     background-color: #33393e;
     padding: 7vh 0;
-    
 }
 
+/* Form styles: Define styles for <form> elements to control width and text color */
 form {
     width: 75%;
     color: whitesmoke;
 }
 
+/* #title styles: Style the element with ID "title" to manage margin */
 #title {
-    margin-bottom: 24px;
-    color: #f1c067;
+    margin-bottom: 24px; /* Set bottom margin */
+    color: #f1c067; /* Set text color */
 }
 
+/* Label and .form-control styles: Define common styles for <label> elements and elements with the .form-control class */
 label, .form-control {
     margin-bottom: 12px;
 }
 
+/* #submit styles: Style the submit button to appear on the right */
 #submit {
     float: right;
+}
+
+/* .container-sm.result styles: Define styles for elements with both .container-sm and .result classes */
+.container-sm.result {
+    align-items: flex-start;
+    padding-left: 5vw;
+    color: whitesmoke;
+}
+
+/* #user_name styles: Define styles for the element with ID "user_name" */
+#user_name {
+    color: #0679fa;
+    margin-bottom: 12px;
 }
