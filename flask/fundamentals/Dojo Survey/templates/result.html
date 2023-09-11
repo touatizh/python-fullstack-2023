@@ -11,14 +11,14 @@
 <body>
     <main class="container-sm result">
         <h1 id="user_name">{{data.name}}</h1>
-            <div>
-                {% for key, value in data.items() %}
-                    {% if key != "name" %}
-                        <p> {{ key }}:  {{ value }}</p>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </form>
+        <div>
+            {% for key, value in data.items() %}
+                {% if key != "name" %}
+                    <p> {{ key }}:  {{ value }}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <a class="btn btn-link" href="{{ url_for('dojo_survey.index') }}">Go Back</a>
     </main>
 </body>
 </html>

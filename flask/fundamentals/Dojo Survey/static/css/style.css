@@ -60,3 +60,10 @@ label, .form-control {
     color: #0679fa;
     margin-bottom: 12px;
 }
+
+/* .btn-link styles: Define styles for the element with ".btn-link" class */
+.btn.btn-link {
+    text-decoration: none;
+    border: none;
+    padding: 0;
+}
