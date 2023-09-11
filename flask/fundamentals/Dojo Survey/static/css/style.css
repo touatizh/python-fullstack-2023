@@ -1,0 +1,46 @@
+/* Wildcard */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
+/* Set a minimum height for the body to fill the viewport height */
+body {
+    overflow-y: hidden;
+}
+
+/* Center content both vertically and horizontally in the body and .container-sm elements */
+body,
+.container-sm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Define styles for .container-sm to organize content in a column, with specific height and width */
+.container-sm {
+    flex-direction: column;
+    max-width: 50vw!important;
+    background-color: #33393e;
+    padding: 7vh 0;
+    
+}
+
+form {
+    width: 75%;
+    color: whitesmoke;
+}
+
+#title {
+    margin-bottom: 24px;
+    color: #f1c067;
+}
+
+label, .form-control {
+    margin-bottom: 12px;
+}
+
+#submit {
+    float: right;
+}
