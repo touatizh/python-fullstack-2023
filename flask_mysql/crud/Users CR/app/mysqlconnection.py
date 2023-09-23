@@ -1,10 +1,7 @@
 import pymysql.cursors
-from dotenv import load_dotenv
 import os
 
 #! To avoid hardcoding the user password inside of the class, password is stored as an environment varible in `.env` file
-#! This instruction loads those varibles relying on python-dotenv library
-load_dotenv()
 
 class MySQLConnection:
     def __init__(self, db):
