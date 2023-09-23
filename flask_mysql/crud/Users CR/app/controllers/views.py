@@ -1,6 +1,6 @@
-from .forms import UserForm
+from app.controllers.forms import UserForm
 from flask import request, render_template, redirect, url_for
-from .models import User
+from app.models.user import User
 
 def index():
     """
