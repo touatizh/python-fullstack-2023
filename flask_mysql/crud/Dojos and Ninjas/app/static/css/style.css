@@ -1,0 +1,12 @@
+/* Wildcard */
+* {
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
+.container {
+    height: 85vh;
+}
+
+#dojo_list {
+    min-height: 75%!important;
+}

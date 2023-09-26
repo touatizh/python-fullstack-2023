@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %} New Ninja {% endblock title %}
+
+{% block content %}
+
+<div class="row d-flex justify-content-between">
+    <div class="col col-md-8">
+        <div class="h1 mb-4">New Ninja</div>
+        <form action="{{ url_for('ninja.create') }}" method="post">
+            {{ form.hidden_tag() }}
+            {% for field in form %}
+                {% if field.name != "csrf_token" and field.type != "SubmitField" %}
+                    <div class="row align-items-center m-lg-2">
+                        <div class="col-md-3 mt-lg-4">
+                            {{ field.label(class="form-label") }}:
+                        </div>
+                        {% if field.name == "dojo_id" %}
+                            <div class="col-md-5 mt-lg-4">
+                                {{ field(class="form-select") }}
+                            </div>
+                        {% else %}
+                            <div class="col-md-5 mt-lg-4">
+                                {{ field(class="form-control") }}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class="col-md-3 mt-4 offset-md-3 ps-3">
+                {{form.submit(class="btn btn-primary")}}
+            </div>
+        </form>
+    </div>
+    <div class="mt-lg-5">
+        <a href="{{ url_for('dojo.list_all') }}" class="link-primary">Home</a>
+    </div>
+</div>
+
+{% endblock %}

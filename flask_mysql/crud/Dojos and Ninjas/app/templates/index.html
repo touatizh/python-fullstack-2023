@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %} Dojos {% endblock title %}
+
+{% block content %}
+
+<div class="row d-flex justify-content-between">
+    <div class="col col-md-7">
+        <h1>New Dojo</h1>
+        <form action="{{ url_for('dojo.create') }}" method="post">
+            {{ form.hidden_tag() }}
+            {% for field in form %}
+                {% if field.name != "csrf_token" and field.type != "SubmitField" %}
+                    <div class="row align-items-center">
+                        <div class="col-md-2 m-4">
+                            {{ field.label(class="form-label") }}:
+                        </div>
+                        <div class="col-md-5">
+                            {{ field(class="form-control") }}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class="offset-md-3">
+                {{form.submit(class="btn btn-primary")}}
+            </div>
+        </form>
+    </div>
+    <div class="col col-md-5">
+        <h1>All dojos</h1>
+        <div id="dojo_list" class="border border-dark border-2 mt-4">
+            {% for dojo in dojos %}
+                <div class="m-2">
+                    <a href="{{ url_for('dojo.details', id=dojo.id) }}" class="link-primary">{{ dojo.name }}</a>
+                </div>
+                
+            {% endfor %}
+        </div>
+        <div class="mt-2">
+            <a href="{{ url_for('ninja.new_ninja') }}" class="link-primary">Add Ninja</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %} Dojo Show {% endblock title %}
+
+{% block content %}
+
+<div class="row d-flex justify-content-between">
+    <div class="col col-md-5">
+        <h1>{{dojo.name}} Ninjas</h1>
+        <!-- <div id="dojo_list" class="border border-dark border-2 mt-4">
+            {% for ninja in dojo_ninjas %}
+                <div class="m-2">
+                    {{ninja.first_name}}
+                </div>
+            {% endfor %}
+        </div> -->
+        {% if not dojo_ninjas %}
+            <p class="mt-lg-5">No Ninjas associated to {{dojo.name}} Dojo.</p>
+        {% else %}
+            <table class="table table-bordered table-striped text-center mt-lg-5">
+                <thead>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Age</th>
+                </thead>
+                <tbody>
+                    {% for ninja in dojo_ninjas %}
+                        <tr>
+                            <td>{{ninja.first_name}}</td>
+                            <td>{{ninja.last_name}}</td>
+                            <td>{{ninja.age}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        <div class="mt-lg-5">
+            <a href="{{ url_for('dojo.list_all') }}" class="link-primary">Home</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
