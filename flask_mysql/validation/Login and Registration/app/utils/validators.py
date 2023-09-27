@@ -5,8 +5,7 @@ from flask_wtf import FlaskForm
 from wtforms.fields.core import Field
 from wtforms.validators import ValidationError
 
-from flask import flash
-
+from flask import flash, current_app
 
 class Email:
     """
@@ -122,8 +121,15 @@ class Password:
                 if not valid:
                     raise ValidationError
             case "login":
-                #TODO to be done after implementing password hashing
-                pass
+                if form.email.errors:
+                    return
+                user = User.get_by_email({"email": form.email.data})
+                if not user:
+                    flash("Invalid credentials. #login", "danger")
+                    raise ValidationError
+                if not current_app.bcrypt.check_password_hash(user["password"], password.data):
+                    flash("Invalid credentials. #login", "danger")
+                    return ValidationError
             case _:
                 flash("Internal Server Error.", "danger")
                 raise Exception("Invalid email validation operation")
