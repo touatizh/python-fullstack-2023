@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for, session
-from app.controllers.forms import RegForm
+from app.controllers.forms import RegForm, LoginForm
 from app.models.users import User
 
 def index():
@@ -13,7 +13,8 @@ def index():
         render_template: Renders the "index.html" template with the registration form.
     """
     
-    forms = {"register": RegForm() if not "form_data" in session else RegForm(data=session["form_data"]),}
+    forms = {"register": RegForm() if not "form_data" in session else RegForm(data=session["form_data"]),
+             "login": LoginForm()}
     session.pop('form_data', None)
     return render_template("index.html", forms=forms)
 
@@ -34,4 +35,10 @@ def register():
         return redirect(url_for("reg_log.home"))
     
     User.save(request.form.to_dict())
+    return redirect(url_for("reg_log.home"))
+
+def login():
+    form = LoginForm(request.form)
+    if not form.validate_on_submit():
+        return redirect(url_for("reg_log.home"))
     return redirect(url_for("reg_log.home"))
