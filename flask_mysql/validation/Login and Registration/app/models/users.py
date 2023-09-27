@@ -1,7 +1,7 @@
 from __future__ import annotations
 import os
 
-from flask import flash
+from flask import flash, current_app
 from app.config.mysqlconnection import connectToMySQL
 
 db = os.environ.get("DB")
@@ -71,6 +71,8 @@ class User:
         Returns:
             int: The ID of the saved user.
         """
+        data["password"] = current_app.bcrypt.generate_password_hash(data["password"])
+        
         query = "INSERT INTO users (first_name, last_name, email, password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s)"
         
         result = connectToMySQL(db).query_db(query, data)

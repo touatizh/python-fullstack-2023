@@ -1,10 +1,15 @@
-from flask import Flask
 import os
 
 from app.controllers.routes import bp
+from flask_bcrypt import Bcrypt
+
+from flask import Flask
 
 # Define the base and current directories using the os module to construct paths for the template and static folders
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Create an instance of Bcrypt. This instance will be used to hash and verify passwords.
+bcrypt = Bcrypt()
 
 def create_app() -> Flask:
     """
@@ -21,6 +26,10 @@ def create_app() -> Flask:
     app = Flask(__name__, 
                 template_folder=os.path.join(CURRENT_DIR, "templates"),
                 static_folder=os.path.join(CURRENT_DIR, "static"))
+
+    # Initialize the Bcrypt extension with the Flask app instance. This allows Bcrypt to be used with the app's configurations.
+    bcrypt.init_app(app)
+    app.bcrypt = bcrypt
 
     # Register the blueprint to add the routes to the application
     app.register_blueprint(bp)
