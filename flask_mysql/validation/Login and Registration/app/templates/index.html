@@ -48,20 +48,20 @@
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     {% for category, message in messages %}
-                        {% if '#log' in message %}
+                        {% if '#login' in message %}
                             <div class="alert alert-{{ category }}" role="alert">
-                                {{ message|replace('#log', '') }}
+                                {{ message|replace('#login', '') }}
                             </div>
                         {% endif %}
                     {% endfor %}
                 {% endif %}
             {% endwith %}
-        <form action="" method="post">
+        <form action="/login" method="post">
             {{ forms.login.hidden_tag() }}
             {% for field in forms.login %}
                 {% if field.name != "csrf_token" and field.type != "SubmitField" %}
                     <div class="row align-items-center m-lg-2">
-                        <div class="col-md-5 mt-lg-4">
+                        <div class="col-md-3 mt-lg-4">
                             {{ field.label(class="card-text form-label") }}:
                         </div>
                             <div class="col-md-7 mt-lg-4">
