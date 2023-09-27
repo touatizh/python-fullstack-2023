@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block title %}  Register - Login {% endblock %}
+
+{% block content %}
+
+<div class="justify-content-between d-flex gap-5">
+    <div class="col-md-6 card card-body bg-primary-subtle">
+        <div class="card-title h3 text-blue">Register</div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if '#reg' in message %}
+                        <div class="alert alert-{{ category }}" role="alert">
+                            {{ message|replace('#reg', '') }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form action="/register" method="post">
+            {{ forms.register.hidden_tag() }}
+            {% for field in forms.register %}
+                {% if field.name != "csrf_token" and field.type != "SubmitField" %}
+                    <div class="row align-items-center m-lg-2">
+                        <div class="col-md-5 mt-lg-4">
+                            {{ field.label(class="card-text form-label") }}:
+                        </div>
+                        {% if field.type == 'SelectField' %}
+                            <div class="col-md-7 mt-lg-4">
+                                {{ field(class="form-select") }}
+                            </div>
+                        {% else %}
+                            <div class="col-md-7 mt-lg-4">
+                                {{ field(class="form-control") }}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class="d-flex justify-content-center mt-4">
+                {{forms.register.submit(class="btn btn-primary")}}
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6 card card-body bg-success-subtle">
+        <div class="card-title h3 text-blue">Login</div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if '#log' in message %}
+                            <div class="alert alert-{{ category }}" role="alert">
+                                {{ message|replace('#log', '') }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        <form action="" method="post">
+            {{ forms.login.hidden_tag() }}
+            {% for field in forms.login %}
+                {% if field.name != "csrf_token" and field.type != "SubmitField" %}
+                    <div class="row align-items-center m-lg-2">
+                        <div class="col-md-5 mt-lg-4">
+                            {{ field.label(class="card-text form-label") }}:
+                        </div>
+                            <div class="col-md-7 mt-lg-4">
+                                {{ field(class="form-control") }}
+                            </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class="d-flex justify-content-center mt-4">
+                {{forms.login.submit(class="btn btn-success")}}
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
