@@ -1,6 +1,8 @@
 from flask import Flask
 import os
 
+from app.controllers.routes import bp
+
 # Define the base and current directories using the os module to construct paths for the template and static folders
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -19,6 +21,9 @@ def create_app() -> Flask:
     app = Flask(__name__, 
                 template_folder=os.path.join(CURRENT_DIR, "templates"),
                 static_folder=os.path.join(CURRENT_DIR, "static"))
+
+    # Register the blueprint to add the routes to the application
+    app.register_blueprint(bp)
 
     # Set secret key
     app.secret_key = os.environ.get("SECRET_KEY")
