@@ -28,3 +28,19 @@ class RegForm(FlaskForm):
     password = PasswordField("Password", validators=[DataRequired(), Length(min=8), Password()])
     confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password", message="Passwords don't match")])
     submit = SubmitField("Register")
+
+class LoginForm(FlaskForm):
+    """
+    Form class for user login.
+
+    This class provides fields for email and password input and is used to authenticate users during the login process.
+    The email and password fields have custom validators that ensure the entered values are valid for authentication.
+
+    Attributes:
+        email (StringField): An input field for the user's email address. It uses custom validators to check the email format and existence in the system.
+        password (PasswordField): An input field for the user's password. It uses custom validators to ensure the password meets specific criteria and matches the email provided.
+        submit (SubmitField): A submit button for the form.
+    """
+    email = StringField("Email", validators=[DataRequired(), Email(operation="login")])
+    password = PasswordField("Password", validators=[DataRequired(), Password(operation="login")])
+    submit = SubmitField("Login")
