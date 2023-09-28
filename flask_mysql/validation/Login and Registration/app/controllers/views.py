@@ -75,3 +75,16 @@ def dashboard():
     
     user = User.get_by_id({"id": session["user_id"]})
     return render_template("dashboard.html", user_name=user.first_name)
+
+def logout():
+    """
+    Logs out the current user and redirects to the home page.
+
+    The function pops the 'user_id' from the session, effectively logging out the user. 
+    The user is then redirected to the home page.
+
+    Returns:
+        redirect: Redirects the user to the home page.
+    """
+    session.pop("user_id")
+    return redirect(url_for("reg_log.home"))
