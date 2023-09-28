@@ -58,8 +58,18 @@ class User:
         results = connectToMySQL(db).query_db(query, data)
 
         if results:
-            return results[0]
+            return cls(results[0])
 
+    @classmethod
+    def get_by_id(cls, data: dict) -> User|None:
+
+        query = "SELECT * FROM users WHERE id=%(id)s"
+
+        results = connectToMySQL(db).query_db(query, data)
+
+        if results:
+            return cls(results[0])
+    
     @classmethod
     def save(cls, data: dict) -> int:
         """
