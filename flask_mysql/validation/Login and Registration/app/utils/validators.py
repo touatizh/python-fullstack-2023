@@ -127,9 +127,9 @@ class Password:
                 if not user:
                     flash("Invalid credentials. #login", "danger")
                     raise ValidationError
-                if not current_app.bcrypt.check_password_hash(user["password"], password.data):
+                if not current_app.bcrypt.check_password_hash(user.password, password.data):
                     flash("Invalid credentials. #login", "danger")
-                    return ValidationError
+                    raise ValidationError
             case _:
                 flash("Internal Server Error.", "danger")
                 raise Exception("Invalid email validation operation")
