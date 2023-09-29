@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %} Recipes {% endblock %}
+
+{% block content %}
+
+<div class="container d-flex justify-content-between">
+    <header>
+        <h1>Welcome {{ current_user.first_name }}!</h1>
+        <h5 class="ms-2">These are the recipes</h5>
+    </header>
+    
+    <nav>
+        <a href="{{ url_for('new_recipe') }}" class="btn btn-link">Create</a>
+        <a href="{{ url_for('logout') }}" class="btn btn-link">Logout</a>
+    </nav>
+</div>
+
+<div class="container d-flex justify-content-center col-10 mt-5">
+    <table class="table table-striped ">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Under 30 minutes?</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recipe in recipes %}
+                <tr>
+                    <td>{{ recipe.name }}</td>
+                    <td>{{ "Yes" if recipe.under_thirty else "No" }}</td>
+                    <td>
+                        <a href="{{ url_for('show_recipe', id=recipe.id) }}" class="btn btn-link">view instructions</a>
+                        {% if current_user.id == recipe.user.id %}
+                            <a href="{{ url_for('edit_recipe', id=recipe.id) }}" class="btn btn-link">edit</a>
+                            <a href="{{ url_for('delete', id=recipe.id) }}" class="btn btn-link">delete</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+/* Wildcard */
+* {
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
+.alert {
+    margin-bottom: 2px!important;
+    line-height: normal;
+    padding: 4px 12px!important;
+}

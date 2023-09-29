@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %} Recipes {% endblock %}
+
+{% block content %}
+
+<div class="container d-flex justify-content-between">
+    <header>
+        <h1>Welcome {{ recipe.user.first_name }}!</h1>
+    </header>
+    
+    <nav>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-link">Dashboard</a>
+        <a href="{{ url_for('logout') }}" class="btn btn-link">Logout</a>
+    </nav>
+</div>
+<h3 class="mt-5 ms-lg-5">{{ recipe.name }}</h3>
+<div class="container d-flex flex-column  mt-5 border border-1">
+    <div class="row m-2">
+        <span class="col-3">Description: </span>
+        <p class="col">{{ recipe.description }}</p>
+    </div>
+    <div class="row m-2">
+        <span class="col-3">Under 30 minutes: </span>
+        <p class="col">{{ "Yes" if recipe.under_thirty else "No" }}</p>
+    </div>
+    <div class="row m-2">
+        <span class="col-3">Instructions: </span>
+        <p class="col">{{ recipe.instructions }}</p>
+    </div>
+    <div class="row m-2">
+        <span class="col-3">Date made: </span>
+        <p class="col">{{ recipe.date_made.strftime("%B %dth, %Y") }}</p>
+    </div>
+</div>
+
+{% endblock %}

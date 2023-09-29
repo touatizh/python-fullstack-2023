@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block title %} Recipes {% endblock %}
+
+{% block content %}
+
+<div class="container d-flex justify-content-between">
+    <header>
+        <h1>Edit Recipe</h1>
+    </header>
+    
+    <nav>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-link">Dashboard</a>
+        <a href="{{ url_for('logout') }}" class="btn btn-link">Logout</a>
+    </nav>
+</div>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+
+<form class="d-flex justify-content-between mt-5" action="{{ url_for('update') }}" method="post">
+    <input type="hidden" name="id" value="{{ recipe.id }}">
+    <div class="col-5">
+        <div class="form-group mt-3">
+            <label for="name">Name:</label>
+            <input type="text" name="name" class="form-control mt-3" value="{{ recipe.name }}">
+        </div>
+        <div class="form-group mt-3">
+            <label for="description">Description:</label>
+            <textarea class="form-control mt-3" name="description"cols="20" rows="5">{{ recipe.description }}</textarea>
+        </div>
+        <div class="form-group mt-3">
+            <label for="instructions">Instructions:</label>
+            <textarea class="form-control mt-3" name="instructions" cols="20" rows="5">{{ recipe.instructions }}</textarea>
+        </div>
+        <button type="submit" class="mt-4 btn btn-primary">Update</button>
+    </div>
+    <div class="col-5">
+        <div class="form-group mt-3">
+            <label for="date_made">Date Made On:</label>
+            <input type="date" name="date_made" value="{{ recipe.date_made }}">
+        </div>
+        <div class="form-group mt-3">
+            <label for="under_thirty">Under 30 minutes?</label>
+            {% if recipe.under_thirty %}
+                <div>
+                    <input type="radio" name="under_thirty" id="yes" value="1" checked> <label class="ms-1 me-3" for="yes">Yes</label>
+                    <input type="radio" name="under_thirty" id="no" value="0"> <label class="ms-1" for="no">No</label>
+                </div>
+            {% else %}
+                <div>
+                    <input type="radio" name="under_thirty" id="yes" value="1"> <label class="ms-1 me-3" for="yes">Yes</label>
+                    <input type="radio" name="under_thirty" id="no" value="0" checked> <label class="ms-1" for="no">No</label>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</form>
+
+{% endblock %}
